@@ -2,7 +2,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/* Class-based dark mode (see https://tailwindcss.com/docs/dark-mode) */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -46,18 +47,17 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  /* Primitive scales — use: bg-primitive-gray-100, text-primitive-green-400, etc. */
-  --color-primitive-gray-50: var(--primitive-gray-50);
+  /* Gray primitives 100–700 — use: bg-primitive-gray-300, text-primitive-gray-600, etc. */
   --color-primitive-gray-100: var(--primitive-gray-100);
   --color-primitive-gray-200: var(--primitive-gray-200);
   --color-primitive-gray-300: var(--primitive-gray-300);
+  --color-primitive-gray-400: var(--primitive-gray-400);
   --color-primitive-gray-500: var(--primitive-gray-500);
+  --color-primitive-gray-600: var(--primitive-gray-600);
   --color-primitive-gray-700: var(--primitive-gray-700);
-  --color-primitive-gray-900: var(--primitive-gray-900);
-  --color-primitive-gray-950: var(--primitive-gray-950);
   --color-primitive-green-100: var(--primitive-green-100);
-  --color-primitive-green-400: var(--primitive-green-400);
-  --color-primitive-green-900: var(--primitive-green-900);
+  --color-primitive-green-500: var(--primitive-green-500);
+  --color-primitive-green-700: var(--primitive-green-700);
   --color-primitive-brand-100: var(--primitive-brand-100);
   --color-primitive-brand-500: var(--primitive-brand-500);
   --color-primitive-brand-900: var(--primitive-brand-900);
@@ -71,144 +71,111 @@
    Semantic theme tokens below reference these for a single source of truth.
    ========================================================================== */
 
-/* Semantic → primitive map (all non-destructive semantics resolve here)
-   ┌────────────────────────────┬──────────────────────────────────────────┐
-   │ Semantic                   │ Primitive(s)                             │
-   ├────────────────────────────┼──────────────────────────────────────────┤
-   │ Light: background, card,   │ gray-50                                  │
-   │   popover                  │                                          │
-   │ Light: foreground, card-fg │ gray-900                                 │
-   │ Light: muted               │ gray-100                                 │
-   │ Light: muted-foreground    │ gray-500                                 │
-   │ Light: border, input,      │ gray-200                                 │
-   │   sidebar-accent (bg),       │                                          │
-   │   sidebar-border           │                                          │
-   │ Light: sidebar (bg)        │ gray-100                                 │
-   │ primary, ring, sidebar-r,  │ green-400                                 │
-   │   sidebar-primary, chart-1 │                                          │
-   │ primary-foreground (light),│ green-900                                 │
-   │   secondary-fg, accent-fg,   │                                          │
-   │   sidebar-primary-fg       │                                          │
-   │ secondary, accent (light)  │ green-100                                 │
-   │ chart-2, chart-5 (dark)    │ green-900                                 │
-   │ chart-3 (light)            │ green-100                                 │
-   │ chart-4 (light)            │ gray-500                                 │
-   │ chart-5 (light)            │ gray-300                                 │
-   │ Dark: background, sidebar  │ gray-900                                 │
-   │ Dark: card, popover,       │ gray-700                                 │
-   │   muted, sidebar-accent    │                                          │
-   │ Dark: fg, card-fg, accent-fg│ gray-50                                 │
-   │ Dark: muted-foreground     │ gray-300                                 │
-   │ Dark: primary-fg,          │ gray-900 (on lime primary)               │
-   │   sidebar-primary-fg       │                                          │
-   │ Dark: accent               │ mix green-400 + gray-700                 │
-   │ Dark: border, input,       │ mix gray-300 + transparent             │
-   │   sidebar-border           │                                          │
-   └────────────────────────────┴──────────────────────────────────────────┘
-   Tailwind: @theme --color-* points at semantic vars (e.g. --color-primary
-   → --primary). Direct primitives: bg-primitive-gray-200, etc.
-   Brand-* primitives duplicate green-* (same hex); prefer green-* in semantics.
+/* Semantic tokens use --primitive-gray-100…700 and --primitive-green-*.
+   @theme --color-* maps utilities (bg-primary) to semantics; primitives use
+   bg-primitive-gray-* / text-primitive-green-*. Brand-* mirrors green-*.
    ========================================================================== */
 
 /* ==========================================================================
    DESIGNER NOTE: Theme variables (light mode)
    Key variables:
    — --background / --foreground: page background and text
-   — --primary / --primary-foreground: primary buttons (green-400 / green-900)
+   — --primary / --primary-foreground: primary buttons (green-500 / green-700)
    — --secondary, --muted, --accent: secondary UI surfaces
    — --border, --input, --ring: borders and focus rings
    — --radius: default border radius (buttons, cards, inputs)
    — --sidebar-*: sidebar-specific colours
    ========================================================================== */
 :root {
+  color-scheme: light;
   --radius: 0.625rem;
 
-  /* Gray primitives (50→950; matches @theme --color-primitive-gray-*) */
-  --primitive-gray-50: #ffffff;
-  --primitive-gray-100: #ecede8;
-  --primitive-gray-200: #d7d8d2;
-  --primitive-gray-300: #b7b9b4;
-  --primitive-gray-500: #5a5e58;
-  --primitive-gray-700: #2f322d;
-  --primitive-gray-900: #0b0c0a;
-  --primitive-gray-950: #000000;
+  /* Gray primitives (100–700) */
+  --primitive-gray-100: #ffffff;
+  --primitive-gray-200: #ecede8;
+  --primitive-gray-300: #d7d8d2;
+  --primitive-gray-400: #5a5e58;
+  --primitive-gray-500: #2f322d;
+  --primitive-gray-600: #0b0c0a;
+  --primitive-gray-700: #0b0c0a;
 
   /* Green primitives (mint → lime → forest) */
   --primitive-green-100: #d6f9ce;
-  --primitive-green-400: #9ee770;
-  --primitive-green-900: #163300;
+  --primitive-green-500: #9ee770;
+  --primitive-green-700: #163300;
 
   /* Brand primitives (same values as green — semantic “brand” group) */
   --primitive-brand-100: #d6f9ce;
   --primitive-brand-500: #9ee770;
-  --primitive-brand-900: #163300;
+  --primitive-brand-700: #163300;
 
-  --background: var(--primitive-gray-50);
-  --foreground: var(--primitive-gray-900);
-  --card: var(--primitive-gray-50);
-  --card-foreground: var(--primitive-gray-900);
-  --popover: var(--primitive-gray-50);
-  --popover-foreground: var(--primitive-gray-900);
-  --primary: var(--primitive-green-400);
-  --primary-foreground: var(--primitive-green-900);
-  --secondary: var(--primitive-green-100);
-  --secondary-foreground: var(--primitive-green-900);
-  --muted: var(--primitive-gray-100);
-  --muted-foreground: var(--primitive-gray-500);
+  --background: var(--primitive-gray-100);
+  --foreground: var(--primitive-gray-600);
+  --card: var(--primitive-gray-100);
+  --card-foreground: var(--primitive-gray-600);
+  --popover: var(--primitive-gray-100);
+  --popover-foreground: var(--primitive-gray-600);
+  --primary: var(--primitive-brand-500);
+  --primary-foreground: var(--primitive-brand-700);
+  --secondary: var(--primitive-brand-700);
+  --secondary-foreground: var(--primitive-brand-100);
+  --muted: var(--primitive-gray-200);
+  --muted-foreground: var(--primitive-gray-400);
   --accent: var(--primitive-green-100);
-  --accent-foreground: var(--primitive-green-900);
+  --accent-foreground: var(--primitive-green-700);
   --destructive: #dc2626;
-  --border: var(--primitive-gray-200);
-  --input: var(--primitive-gray-200);
-  --ring: var(--primitive-green-400);
-  --chart-1: var(--primitive-green-400);
-  --chart-2: var(--primitive-green-900);
+  --border: var(--primitive-gray-300);
+  --input: var(--primitive-gray-300);
+  --ring: var(--primitive-green-500);
+  --chart-1: var(--primitive-green-500);
+  --chart-2: var(--primitive-green-700);
   --chart-3: var(--primitive-green-100);
-  --chart-4: var(--primitive-gray-500);
+  --chart-4: var(--primitive-gray-400);
   --chart-5: var(--primitive-gray-300);
-  --sidebar: var(--primitive-gray-100);
-  --sidebar-foreground: var(--primitive-gray-900);
-  --sidebar-primary: var(--primitive-green-400);
-  --sidebar-primary-foreground: var(--primitive-green-900);
-  --sidebar-accent: var(--primitive-gray-200);
-  --sidebar-accent-foreground: var(--primitive-gray-900);
-  --sidebar-border: var(--primitive-gray-200);
-  --sidebar-ring: var(--primitive-green-400);
+  --sidebar: var(--primitive-gray-200);
+  --sidebar-foreground: var(--primitive-gray-600);
+  --sidebar-primary: var(--primitive-green-500);
+  --sidebar-primary-foreground: var(--primitive-green-700);
+  --sidebar-accent: var(--primitive-gray-300);
+  --sidebar-accent-foreground: var(--primitive-gray-600);
+  --sidebar-border: var(--primitive-gray-300);
+  --sidebar-ring: var(--primitive-green-500);
 }
 
 /* DESIGNER: Dark mode — add class "dark" to <html> to enable; these vars override :root in dark mode */
 .dark {
-  --background: var(--primitive-gray-900);
-  --foreground: var(--primitive-gray-50);
-  --card: var(--primitive-gray-700);
-  --card-foreground: var(--primitive-gray-50);
-  --popover: var(--primitive-gray-700);
-  --popover-foreground: var(--primitive-gray-50);
-  --primary: var(--primitive-green-400);
-  --primary-foreground: var(--primitive-gray-900);
-  --secondary: var(--primitive-green-100);
-  --secondary-foreground: var(--primitive-green-900);
-  --muted: var(--primitive-gray-700);
+  color-scheme: dark;
+  --background: var(--primitive-gray-600);
+  --foreground: var(--primitive-gray-100);
+  --card: var(--primitive-gray-500);
+  --card-foreground: var(--primitive-gray-100);
+  --popover: var(--primitive-gray-500);
+  --popover-foreground: var(--primitive-gray-100);
+  --primary: var(--primitive-green-500);
+  --primary-foreground: var(--primitive-gray-600);
+  --secondary: var(--primitive-brand-500);
+  --secondary-foreground: var(--primitive-brand-700);
+  --muted: var(--primitive-gray-500);
   --muted-foreground: var(--primitive-gray-300);
-  --accent: color-mix(in oklch, var(--primitive-green-400) 18%, var(--primitive-gray-700));
-  --accent-foreground: var(--primitive-gray-50);
+  --accent: color-mix(in oklch, var(--primitive-brand-500) 18%, var(--primitive-gray-500));
+  --accent-foreground: var(--primitive-gray-100);
   --destructive: #ef4444;
   --border: color-mix(in oklch, var(--primitive-gray-300) 22%, transparent);
   --input: color-mix(in oklch, var(--primitive-gray-300) 28%, transparent);
-  --ring: var(--primitive-green-400);
-  --chart-1: var(--primitive-green-400);
+  --ring: var(--primitive-green-500);
+  --chart-1: var(--primitive-green-500);
   --chart-2: var(--primitive-green-100);
   --chart-3: var(--primitive-gray-300);
-  --chart-4: var(--primitive-gray-500);
-  --chart-5: var(--primitive-green-900);
-  --sidebar: var(--primitive-gray-900);
-  --sidebar-foreground: var(--primitive-gray-50);
-  --sidebar-primary: var(--primitive-green-400);
-  --sidebar-primary-foreground: var(--primitive-gray-900);
-  --sidebar-accent: var(--primitive-gray-700);
-  --sidebar-accent-foreground: var(--primitive-gray-50);
+  --chart-4: var(--primitive-gray-400);
+  --chart-5: var(--primitive-green-700);
+  --sidebar: var(--primitive-gray-600);
+  --sidebar-foreground: var(--primitive-gray-100);
+  --sidebar-primary: var(--primitive-green-500);
+  --sidebar-primary-foreground: var(--primitive-gray-600);
+  --sidebar-accent: var(--primitive-gray-500);
+  --sidebar-accent-foreground: var(--primitive-gray-100);
   --sidebar-border: color-mix(in oklch, var(--primitive-gray-300) 22%, transparent);
-  --sidebar-ring: var(--primitive-green-400);
+  --sidebar-ring: var(--primitive-green-500);
 }
 
 @layer base {
