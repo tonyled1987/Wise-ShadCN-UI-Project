@@ -39,13 +39,16 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --radius-none: 0px;
+  --radius-2xs: 2px;
+  --radius-xs: 4px;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+  --radius-3xl: calc(var(--radius) + 18px);
+  --radius-4xl: calc(var(--radius) + 24px);
 
   /* Gray primitives 100–700 — use: bg-primitive-gray-300, text-primitive-gray-600, etc. */
   --color-primitive-gray-100: var(--primitive-gray-100);
@@ -111,7 +114,7 @@
 
   --background: var(--primitive-gray-100);
   --foreground: var(--primitive-gray-600);
-  --card: var(--primitive-gray-100);
+  --card: var(--primitive-gray-200);
   --card-foreground: var(--primitive-gray-600);
   --popover: var(--primitive-gray-100);
   --popover-foreground: var(--primitive-gray-600);
@@ -122,7 +125,7 @@
   --muted: var(--primitive-gray-200);
   --muted-foreground: var(--primitive-gray-400);
   --accent: var(--primitive-green-100);
-  --accent-foreground: var(--primitive-green-700);
+  --accent-foreground: var(--primitive-brand-700);
   --destructive: #dc2626;
   --border: var(--primitive-gray-300);
   --input: var(--primitive-gray-300);
@@ -132,7 +135,7 @@
   --chart-3: var(--primitive-green-100);
   --chart-4: var(--primitive-gray-400);
   --chart-5: var(--primitive-gray-300);
-  --sidebar: var(--primitive-gray-200);
+  --sidebar: var(--primitive-gray-100);
   --sidebar-foreground: var(--primitive-gray-600);
   --sidebar-primary: var(--primitive-green-500);
   --sidebar-primary-foreground: var(--primitive-green-700);

@@ -37,9 +37,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
         <TooltipProvider>
-          <SidebarProvider>
+          <SidebarProvider style={{ "--sidebar-width": "280px" } as React.CSSProperties}>
             <AppSidebar />
-            <SidebarInset>
+            <SidebarInset className="pl-[92px]">
               <AppHeader />
               {/* DESIGNER: Main content area — padding/layout is in page or a shared wrapper */}
               {children}
